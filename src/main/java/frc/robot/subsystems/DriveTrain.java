@@ -20,6 +20,7 @@ import frc.robot.subsystems.DriveTrain.Constants.*;
 
 public class DriveTrain extends SubsystemBase {
 
+  // Constants used in this subsystem
   public static final class Constants {
     private static final double kGearRatioLow = 4.6;
     private static final double kGearRatioHigh = 2.7;
@@ -47,13 +48,14 @@ public class DriveTrain extends SubsystemBase {
   public DriveMode ChosenDrive;
   private Gear ChosenGear;
   private SendableChooser<DriveMode> DriveModeChooser;
+
   // SparkMax Objects
   private CANSparkMax leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor;
 
   // Speed Controller Groups
   SpeedControllerGroup leftMotors, rightMotors;
 
-  // underlying mechanism
+  // Drive Mechanism for Tank-Style Drive-Train
   private DifferentialDrive drive;
 
   // Distance Encoders
@@ -62,7 +64,7 @@ public class DriveTrain extends SubsystemBase {
   private double distance, leftDistance, rightDistance, xPos, yPos;
 
   public DriveTrain() {
-
+    // Initializing SparkMaxes
     rightFrontMotor = new CANSparkMax(Constants.kRightFrontID, MotorType.kBrushless);
     leftFrontMotor = new CANSparkMax(Constants.kLeftFrontID, MotorType.kBrushless);
     rightBackMotor = new CANSparkMax(Constants.kRightBackID, MotorType.kBrushless);
@@ -78,31 +80,41 @@ public class DriveTrain extends SubsystemBase {
     rightBackMotor.setInverted(false);
     leftBackMotor.setInverted(false);
 
+    // Initializing Speed Controller Groups
     leftMotors = new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
     rightMotors = new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
+    // Initializing Differential Drive with Speed Controller Groups
     drive = new DifferentialDrive(leftMotors, rightMotors);
 
-    initEncoders();
+    // Initializing Encoders
+    leftFrontEncoder = leftFrontMotor.getEncoder();
+    leftBackEncoder = leftBackMotor.getEncoder();
+    rightFrontEncoder = rightFrontMotor.getEncoder();
+    rightBackEncoder = rightBackMotor.getEncoder();
 
+    // Setting Position at 0, 0
     xPos = 0;
     yPos = 0;
 
+    // Setting Default DriveMode and Gear
     ChosenDrive = DriveMode.ATWOJOY;
     ChosenGear = Gear.THIRD;
 
+    // Creating Dropdown Menu to quickly change drive mode on Shuffleboard
     DriveModeChooser = new SendableChooser<>();
     DriveModeChooser.setDefaultOption("Arcade - One Joystick", DriveMode.AONEJOY);
     DriveModeChooser.addOption("Arcade - Two Joystick", DriveMode.ATWOJOY);
     DriveModeChooser.addOption("Tank", DriveMode.TANK);
+
+    // setDefaultCommand(new DriveJoystick());
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  private void initEncoders() {
+    //updateDistance();
+    log();
   }
 
   public void arcadeDrive(double throttle, double rotate, boolean squaredRotation) {
@@ -153,6 +165,63 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("DriveTrain/Drive/TankDrive/Right", right);
 
     drive.tankDrive(left, right, squaredRotation);
+  }
+
+  public void resetEncoders() {
+    leftFrontEncoder.setPosition(0);
+    rightFrontEncoder.setPosition(0);
+    leftBackEncoder.setPosition(0);
+    rightBackEncoder.setPosition(0);
+  }
+
+  public void resetDisplacement() {
+    xPos = 0;
+    yPos = 0;
+  }
+
+  /*private void updateDistance() {
+    double changeinDistance = 0;
+    double prevDistance = distance;
+    leftDistance = -leftFrontEncoder.getPosition();
+    rightDistance = rightFrontEncoder.getPosition();
+    distance = (leftDistance + rightDistance) / 2;
+
+    AHRS navx = Robot.getInstance().getNAVX().getAHRS();
+
+    double angle = navx.getYaw();
+
+    if (angle >= 0 && angle <= 90) {
+      angle = RobotMath.mapDouble(angle, 0, 90, 90, 0);
+    } else if (angle >= 90 && angle <= 180) {
+      angle = RobotMath.mapDouble(angle, 90, 180, 360, 270);
+    } else if (angle <= 0 && angle >= -90) {
+      angle = RobotMath.mapDouble(angle, -90, 0, 180, 90);
+    } else if (angle <= -90 && angle >= -180) {
+      angle = RobotMath.mapDouble(angle, -180, -90, 270, 180);
+    }
+
+    changeinDistance = distance - prevDistance;
+
+    angle = Math.toRadians(angle);
+
+    xPos = xPos + (changeinDistance * Math.cos(angle));
+
+    yPos = yPos + (changeinDistance * Math.sin(angle));
+  }*/
+
+  public void log(){
+    SmartDashboard.putNumber("DriveTrain/Position/Distance", distance);
+        SmartDashboard.putNumber("DriveTrain/Position/xPos", xPos);
+        SmartDashboard.putNumber("DriveTrain/Position/yPos", yPos);
+
+        SmartDashboard.putNumber("DriveTrain/LeftEncoder/Encoder", leftDistance);
+        SmartDashboard.putNumber("DriveTrain/RightEncoder/Encoder", rightDistance);
+
+        SmartDashboard.putData("DriveTrain/Drive/Choose Drive", DriveModeChooser);
+
+        SmartDashboard.putString("DriveTrain/Drive/Gear", ChosenGear.toString());
+
+        ChosenDrive = DriveModeChooser.getSelected();
   }
 
 }
