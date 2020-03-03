@@ -64,13 +64,14 @@ public class DriveTrain extends SubsystemBase {
     leftBackMotor = new CANSparkMax(Constants.kLeftBackID, MotorType.kBrushless);
 
     rightFrontMotor.restoreFactoryDefaults();
-    leftFrontMotor.restoreFactoryDefaults();
+    
     rightBackMotor.restoreFactoryDefaults();
+    leftFrontMotor.restoreFactoryDefaults();
     leftBackMotor.restoreFactoryDefaults();
 
-    rightFrontMotor.setInverted(false);
+    rightFrontMotor.setInverted(true);
+    rightBackMotor.setInverted(true);
     leftFrontMotor.setInverted(false);
-    rightBackMotor.setInverted(false);
     leftBackMotor.setInverted(false);
 
     // Initializing Speed Controller Groups
@@ -79,6 +80,7 @@ public class DriveTrain extends SubsystemBase {
 
     // Initializing Differential Drive with Speed Controller Groups
     drive = new DifferentialDrive(leftMotors, rightMotors);
+    drive.setRightSideInverted(false);
 
     // Initializing Encoders
     leftFrontEncoder = leftFrontMotor.getEncoder();
@@ -175,7 +177,7 @@ public class DriveTrain extends SubsystemBase {
   private void updateDistance() {
     double changeinDistance = 0;
     double prevDistance = distance;
-    leftDistance = -leftFrontEncoder.getPosition();
+    leftDistance = -leftFrontEncoder.getPosition(); // double check this is working properly when you can test
     rightDistance = rightFrontEncoder.getPosition();
     distance = (leftDistance + rightDistance) / 2;
 
