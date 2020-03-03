@@ -24,8 +24,7 @@ import frc.robot.subsystems.DriveTrain.Constants.*;
 import frc.robot.util.RobotMath;
 
 public class DriveTrain extends SubsystemBase {
-
-  // Constants used in this subsystem
+  // Constants used in this class
   public static final class Constants {
     private static final int kLeftFrontID = 12;
     private static final int kLeftBackID = 13;

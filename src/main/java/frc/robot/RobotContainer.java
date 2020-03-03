@@ -1,16 +1,13 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.util.XboxController;
 import frc.robot.commands.auto.Auto;
+import frc.robot.commands.drivetrain.ChangeGear;
+import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.shooter.ChangeShooterPower;
+import frc.robot.commands.shooter.Shoot;
 import frc.robot.components.NAVX;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -25,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-
+  // Constants used in this class
   public static final class Constants {
     public static final int kOperatorController = 1;
     public static final int kDriverController = 0;
@@ -35,24 +32,26 @@ public class RobotContainer {
     }
   }
 
+  // Initalizing Controllers
   private final XboxController driverController = new XboxController(Constants.kDriverController);
   private final XboxController operatorController = new XboxController(Constants.kOperatorController);
 
+  // Initializing Other Components
   private final PowerDistributionPanel powerDistrubitionPanel = new PowerDistributionPanel();
+  private final NAVX navx = new NAVX();
 
-  // The robot's subsystems and commands are defined here...
+  // Initializing Subsystems
   private final DriveTrain driveTrain = new DriveTrain();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
-  private final NAVX navx = new NAVX();
 
+  // Initializing Auto Command
   private final Command autoCommand = new Auto();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
     configureButtonBindings();
   }
 
@@ -68,6 +67,21 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Shooter
+    operatorController.dPad.up.whenPressed(new ChangeShooterPower(true));
+    operatorController.dPad.down.whenPressed(new ChangeShooterPower(false));
+    operatorController.A.toggleWhenPressed(new Shoot());
+
+    // Intake
+    operatorController.B.toggleWhenPressed(new RunIntake());
+
+    // Climber
+
+    // Drive
+    driverController.RT.whenPressed(new ChangeGear(false));
+    driverController.RB.whenPressed(new ChangeGear(true));
+    //driverController.LT.whileActive(new DriveStraight());
+    // Still need to convert DriveStraight Command to New Command-Based
   }
 
   /**
@@ -76,7 +90,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
 
-  public Command getAutonomousCommand() { // An ExampleCommand will run in autonomous
+  public Command getAutonomousCommand() {
     return autoCommand;
   }
 
