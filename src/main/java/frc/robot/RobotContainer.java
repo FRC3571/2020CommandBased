@@ -9,6 +9,7 @@ import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.shooter.ChangeShooterPower;
 import frc.robot.commands.shooter.Shoot;
 import frc.robot.components.NAVX;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -44,6 +45,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
+  private final ControlPanel controlPanel = new ControlPanel();
 
   // Initializing Auto Command
   private final Command autoCommand = new Auto();
@@ -109,6 +111,10 @@ public class RobotContainer {
 
   public Shooter getShooter() {
     return shooter;
+  }
+
+  public ControlPanel getControlPanel(){
+    return controlPanel;
   }
 
   public NAVX getNAVX() {
