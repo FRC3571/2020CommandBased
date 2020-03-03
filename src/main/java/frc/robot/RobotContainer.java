@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.util.XboxController;
 import frc.robot.commands.auto.Auto;
+import frc.robot.commands.controlpanel.PositionControl;
+import frc.robot.commands.controlpanel.RotationControl;
 import frc.robot.commands.drivetrain.ChangeGear;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.shooter.ChangeShooterPower;
@@ -78,6 +80,10 @@ public class RobotContainer {
     operatorController.B.toggleWhenPressed(new RunIntake());
 
     // Climber
+
+    // ControlPanel
+    operatorController.X.toggleWhenPressed(new RotationControl());
+    operatorController.Y.toggleWhenPressed(new PositionControl());
 
     // Drive
     driverController.RT.whenPressed(new ChangeGear(false));
