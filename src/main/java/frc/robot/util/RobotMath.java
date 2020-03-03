@@ -38,4 +38,16 @@ public class RobotMath {
 
         return distance;
     }
+
+    public static double fixAngle(double angle) {
+        if (Math.abs(angle - Robot.getRobotContainer().getNAVX().getAHRS().getYaw()) > 90) {
+            if (angle >= 0 && angle <= 180) {
+                angle -= 180;
+            } else {
+                angle += 180;
+            }
+        }
+
+        return angle;
+    }
 }

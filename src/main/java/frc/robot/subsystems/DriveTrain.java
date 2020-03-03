@@ -255,5 +255,8 @@ public class DriveTrain extends SubsystemBase {
     return distance;
   }
 
+  public double getDriveStraightError(){
+    return Math.abs(leftFrontEncoder.getPosition() - rightFrontEncoder.getPosition());
+  }
 
 }
