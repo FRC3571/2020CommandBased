@@ -56,6 +56,11 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
+  public void log(){
+    driveTrain.log();
+    shooter.log();
+  }
+
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by instantiating a {@link GenericHID} or one of its subclasses
@@ -74,8 +79,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() { // An ExampleCommand will run in autonomous
     return autoCommand;
   }
-
-  // Setters
 
   // Getters
   public XboxController getDriverController() {
