@@ -4,13 +4,10 @@ import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.RobotMath;
 
-//import com.revrobotics.CANError;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
 
-//import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveStraightDistance extends CommandBase {
     private double targetDistance;
