@@ -7,41 +7,43 @@
 
 package frc.robot.commands.drivetrain;
 
-import frc.robot.RobotContainer;
+import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveJoystick extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final DriveTrain driveTrain;
   private final XboxController controller;
 
-  public DriveJoystick(DriveTrain driveTrain) {
-    this.driveTrain = driveTrain;
-    this.controller = RobotContainer.getDriverController();
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveJoystick() {
+    this.driveTrain = Robot.getRobotContainer().getDriveTrain();
+    this.controller = Robot.getRobotContainer().getDriverController();
     addRequirements(driveTrain);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    switch (driveTrain.getChosenDrive()) {
+    case AONEJOY:
+      driveTrain.arcadeDrive(controller.leftStick.getY(), controller.leftStick.getX(), true);
+      break;
+    case ATWOJOY:
+      driveTrain.arcadeDrive(controller.leftStick.getY(), controller.rightStick.getX(), true);
+      break;
+    case TANK:
+      driveTrain.tankdrive(controller.leftStick.getY(), controller.rightStick.getY(), true);
+      break;
+    default:
+      driveTrain.arcadeDrive(controller.leftStick.getY(), -controller.rightStick.getX(), true);
+      break;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    driveTrain.arcadeDrive(0, 0, false);
   }
 }

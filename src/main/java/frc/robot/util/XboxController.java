@@ -1,8 +1,9 @@
 package frc.robot.util;
 
-import edu.wpi.first.wpilibj.Joystick;
-
 /* Imports */
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * [class] XboxController
@@ -43,8 +44,8 @@ public class XboxController extends Joystick {
     /* Default Values */
     private static final double DEFAULT_THUMBSTICK_DEADZONE = 0.1; // Jiggle room for the thumbsticks
     private static final double DEFAULT_TRIGGER_DEADZONE = 0.01; // Jiggle room for the triggers
-    private static final double DEFAULT_TRIGGER_SENSITIVITY = 0; // If the trigger is beyond this limit, say it has been
-                                                                 // pressed
+    private static final double DEFAULT_TRIGGER_SENSITIVITY = 0.6; // If the trigger is beyond this limit, say it has
+                                                                   // been pressed
 
     /* Button Mappings */
     private static final int A_BUTTON_ID = 1;
@@ -55,7 +56,7 @@ public class XboxController extends Joystick {
     private static final int RB_BUTTON_ID = 6;
     private static final int BACK_BUTTON_ID = 7;
     private static final int START_BUTTON_ID = 8;
-    private static final int LEFT_THUMBSTIKC_BUTTON_ID = 9;
+    private static final int LEFT_THUMBSTICK_BUTTON_ID = 9;
     private static final int RIGHT_THUMBSTICK_BUTTON_ID = 10;
 
     /* Axis Mappings */
@@ -159,7 +160,7 @@ public class XboxController extends Joystick {
             angle %= 360;
             angle = Math.round(angle / 45) * 45; // May have rounding errors. Due to rounding errors.
 
-            final DPAD[] all = DPAD.values();
+            DPAD[] all = DPAD.values();
 
             for (int i = 0; i < all.length; i++) {
                 if (all[i].value == angle) {
@@ -206,7 +207,7 @@ public class XboxController extends Joystick {
             if (hand == HAND.LEFT) {
                 this.xAxisID = LEFT_THUMBSTICK_X_AXIS_ID;
                 this.yAxisID = LEFT_THUMBSTICK_Y_AXIS_ID;
-                this.pressedID = LEFT_THUMBSTIKC_BUTTON_ID;
+                this.pressedID = LEFT_THUMBSTICK_BUTTON_ID;
             } else { // If right hand
                 this.xAxisID = RIGHT_THUMBSTICK_X_AXIS_ID;
                 this.yAxisID = RIGHT_THUMBSTICK_Y_AXIS_ID;
@@ -243,7 +244,7 @@ public class XboxController extends Joystick {
          * @param y
          * @return Magnitude of thing
          */
-        private double magnitude(final double x, final double y) {
+        private double magnitude(double x, double y) {
             final double xSquared = Math.pow(x, 2);
             final double ySquared = Math.pow(y, 2);
 
@@ -256,7 +257,7 @@ public class XboxController extends Joystick {
          * @param angle
          * @return Number between 0 and PI/4
          */
-        private double angleToSquareSpace(final double angle) {
+        private double angleToSquareSpace(double angle) {
             final double absAngle = Math.abs(angle);
             final double halfPi = Math.PI / 2;
             final double quarterPi = Math.PI / 4;
@@ -272,7 +273,7 @@ public class XboxController extends Joystick {
          * @param y
          * @return
          */
-        private double scaleMagnitude(final double x, final double y) {
+        private double scaleMagnitude(double x, double y) {
             final double magnitude = magnitude(x, y);
             final double angle = Math.atan2(x, y);
             final double newAngle = angleToSquareSpace(angle);
@@ -373,7 +374,7 @@ public class XboxController extends Joystick {
          * 
          * @param number
          */
-        public void setXDeadZone(final double number) {
+        public void setXDeadZone(double number) {
             xDeadZone = number;
         }
 
@@ -382,7 +383,7 @@ public class XboxController extends Joystick {
          * 
          * @param number
          */
-        public void setYDeadZone(final double number) {
+        public void setYDeadZone(double number) {
             yDeadZone = number;
         }
 
@@ -391,7 +392,7 @@ public class XboxController extends Joystick {
          * 
          * @param number
          */
-        public void setDeadZone(final double number) {
+        public void setDeadZone(double number) {
             xDeadZone = number;
             yDeadZone = number;
         }
@@ -470,7 +471,7 @@ public class XboxController extends Joystick {
          * 
          * @param number
          */
-        public void setTriggerDeadZone(final double number) {
+        public void setTriggerDeadZone(double number) {
             this.deadZone = number;
         }
 
@@ -479,7 +480,7 @@ public class XboxController extends Joystick {
          * 
          * @param number
          */
-        public void setTriggerSensitivity(final double number) {
+        public void setTriggerSensitivity(double number) {
             this.sensitivity = number;
         }
     }
@@ -588,7 +589,7 @@ public class XboxController extends Joystick {
      * @param deadZoneSize
      * @return adjusted_input
      */
-    private static double createDeadZone(final double input, final double deadZoneSize) {
+    private static double createDeadZone(double input, double deadZoneSize) {
         final double negative;
         double deadZoneSizeClamp = deadZoneSize;
         double adjusted;
@@ -628,7 +629,7 @@ public class XboxController extends Joystick {
      * @param hand      The side of the controller to rumble
      * @param intensity How strong the rumble is
      */
-    public void setRumble(final HAND hand, final double intensity) {
+    public void setRumble(HAND hand, double intensity) {
         final float amount = new Float(intensity);
 
         if (hand == HAND.LEFT) {
@@ -643,7 +644,7 @@ public class XboxController extends Joystick {
      * 
      * @param intensity How strong the rumble is
      */
-    public void setRumble(final double intensity) {
+    public void setRumble(double intensity) {
         final float amount = new Float(intensity);
 
         controller.setRumble(RumbleType.kLeftRumble, amount);
@@ -655,7 +656,7 @@ public class XboxController extends Joystick {
      * 
      * @param number
      */
-    public void setDeadZone(final double number) {
+    public void setDeadZone(double number) {
         leftStick.setDeadZone(number);
         rightStick.setDeadZone(number);
     }

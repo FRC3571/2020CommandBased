@@ -7,8 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -16,15 +18,15 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.commands.drivetrain.DriveJoystick;
 import frc.robot.subsystems.DriveTrain.Constants.*;
+import frc.robot.util.RobotMath;
 
 public class DriveTrain extends SubsystemBase {
 
   // Constants used in this subsystem
   public static final class Constants {
-    private static final double kGearRatioLow = 4.6;
-    private static final double kGearRatioHigh = 2.7;
-
     private static final int kLeftFrontID = 12;
     private static final int kLeftBackID = 13;
     private static final int kRightFrontID = 22;
@@ -45,9 +47,9 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  public DriveMode ChosenDrive;
-  private Gear ChosenGear;
-  private SendableChooser<DriveMode> DriveModeChooser;
+  private DriveMode chosenDrive;
+  private Gear chosenGear;
+  private SendableChooser<DriveMode> driveModeChooser;
 
   // SparkMax Objects
   private CANSparkMax leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor;
@@ -98,27 +100,27 @@ public class DriveTrain extends SubsystemBase {
     yPos = 0;
 
     // Setting Default DriveMode and Gear
-    ChosenDrive = DriveMode.ATWOJOY;
-    ChosenGear = Gear.THIRD;
+    chosenDrive = DriveMode.ATWOJOY;
+    chosenGear = Gear.THIRD;
 
     // Creating Dropdown Menu to quickly change drive mode on Shuffleboard
-    DriveModeChooser = new SendableChooser<>();
-    DriveModeChooser.setDefaultOption("Arcade - One Joystick", DriveMode.AONEJOY);
-    DriveModeChooser.addOption("Arcade - Two Joystick", DriveMode.ATWOJOY);
-    DriveModeChooser.addOption("Tank", DriveMode.TANK);
+    driveModeChooser = new SendableChooser<>();
+    driveModeChooser.setDefaultOption("Arcade - One Joystick", DriveMode.AONEJOY);
+    driveModeChooser.addOption("Arcade - Two Joystick", DriveMode.ATWOJOY);
+    driveModeChooser.addOption("Tank", DriveMode.TANK);
 
-    // setDefaultCommand(new DriveJoystick());
+    setDefaultCommand(new DriveJoystick());
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //updateDistance();
+    // updateDistance();
     log();
   }
 
   public void arcadeDrive(double throttle, double rotate, boolean squaredRotation) {
-    switch (ChosenGear) {
+    switch (chosenGear) {
     case FIRST:
       throttle *= Constants.kGearRatioFirst;
       rotate *= Constants.kGearRatioFirst;
@@ -128,8 +130,8 @@ public class DriveTrain extends SubsystemBase {
       rotate *= Constants.kGearRatioSecond;
       break;
     case THIRD:
-      throttle *= Constants.kGearRatioSecond;
-      rotate *= Constants.kGearRatioSecond;
+      throttle *= Constants.kGearRatioThird;
+      rotate *= Constants.kGearRatioThird;
       break;
     default:
       break;
@@ -143,7 +145,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void tankdrive(double left, double right, boolean squaredRotation) {
-    switch (ChosenGear) {
+    switch (chosenGear) {
     case FIRST:
       left *= Constants.kGearRatioFirst;
       right *= Constants.kGearRatioFirst;
@@ -153,8 +155,8 @@ public class DriveTrain extends SubsystemBase {
       right *= Constants.kGearRatioSecond;
       break;
     case THIRD:
-      left *= Constants.kGearRatioSecond;
-      right *= Constants.kGearRatioSecond;
+      left *= Constants.kGearRatioThird;
+      right *= Constants.kGearRatioThird;
       break;
     default:
       break;
@@ -179,14 +181,14 @@ public class DriveTrain extends SubsystemBase {
     yPos = 0;
   }
 
-  /*private void updateDistance() {
+  private void updateDistance() {
     double changeinDistance = 0;
     double prevDistance = distance;
     leftDistance = -leftFrontEncoder.getPosition();
     rightDistance = rightFrontEncoder.getPosition();
     distance = (leftDistance + rightDistance) / 2;
 
-    AHRS navx = Robot.getInstance().getNAVX().getAHRS();
+    AHRS navx = Robot.getRobotContainer().getNAVX().getAHRS();
 
     double angle = navx.getYaw();
 
@@ -207,21 +209,58 @@ public class DriveTrain extends SubsystemBase {
     xPos = xPos + (changeinDistance * Math.cos(angle));
 
     yPos = yPos + (changeinDistance * Math.sin(angle));
-  }*/
-
-  public void log(){
-    SmartDashboard.putNumber("DriveTrain/Position/Distance", distance);
-        SmartDashboard.putNumber("DriveTrain/Position/xPos", xPos);
-        SmartDashboard.putNumber("DriveTrain/Position/yPos", yPos);
-
-        SmartDashboard.putNumber("DriveTrain/LeftEncoder/Encoder", leftDistance);
-        SmartDashboard.putNumber("DriveTrain/RightEncoder/Encoder", rightDistance);
-
-        SmartDashboard.putData("DriveTrain/Drive/Choose Drive", DriveModeChooser);
-
-        SmartDashboard.putString("DriveTrain/Drive/Gear", ChosenGear.toString());
-
-        ChosenDrive = DriveModeChooser.getSelected();
   }
+
+  public void log() {
+    SmartDashboard.putNumber("DriveTrain/Position/Distance", distance);
+    SmartDashboard.putNumber("DriveTrain/Position/xPos", xPos);
+    SmartDashboard.putNumber("DriveTrain/Position/yPos", yPos);
+
+    SmartDashboard.putNumber("DriveTrain/LeftEncoder/Encoder", leftDistance);
+    SmartDashboard.putNumber("DriveTrain/RightEncoder/Encoder", rightDistance);
+
+    SmartDashboard.putData("DriveTrain/Drive/Choose Drive", driveModeChooser);
+
+    SmartDashboard.putString("DriveTrain/Drive/Gear", chosenGear.toString());
+
+    chosenDrive = driveModeChooser.getSelected();
+  }
+
+  public Gear getChosenGear() {
+    return chosenGear;
+  }
+
+  public void setChosenGear(Gear chosenGear) {
+    this.chosenGear = chosenGear;
+  }
+
+  public DriveMode getChosenDrive() {
+    return chosenDrive;
+  }
+
+  public void setChosenDrive(DriveMode chosenDrive) {
+    this.chosenDrive = chosenDrive;
+  }
+
+  public double getXPos() {
+    return xPos;
+  }
+
+  public double getYPos() {
+    return yPos;
+  }
+
+  public CANSparkMax getLeftFrontMotor(){
+    return leftFrontMotor;
+  }
+
+  public CANSparkMax getRightFrontMotor(){
+    return rightFrontMotor;
+  }
+
+  public double getDistance(){
+    return distance;
+  }
+
 
 }
