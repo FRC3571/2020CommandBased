@@ -7,7 +7,6 @@ public class Auto extends SequentialCommandGroup {
     public Auto(){
         addCommands(
         new Shoot()
-
         );
     }
 }

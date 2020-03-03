@@ -630,12 +630,11 @@ public class XboxController extends Joystick {
      * @param intensity How strong the rumble is
      */
     public void setRumble(HAND hand, double intensity) {
-        final float amount = new Float(intensity);
 
         if (hand == HAND.LEFT) {
-            controller.setRumble(RumbleType.kLeftRumble, amount);
+            controller.setRumble(RumbleType.kLeftRumble, intensity);
         } else {
-            controller.setRumble(RumbleType.kRightRumble, amount);
+            controller.setRumble(RumbleType.kRightRumble, intensity);
         }
     }
 
@@ -645,10 +644,9 @@ public class XboxController extends Joystick {
      * @param intensity How strong the rumble is
      */
     public void setRumble(double intensity) {
-        final float amount = new Float(intensity);
 
-        controller.setRumble(RumbleType.kLeftRumble, amount);
-        controller.setRumble(RumbleType.kRightRumble, amount);
+        controller.setRumble(RumbleType.kLeftRumble, intensity);
+        controller.setRumble(RumbleType.kRightRumble, intensity);
     }
 
     /*
