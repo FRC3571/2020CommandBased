@@ -72,22 +72,22 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Shooter
-    operatorController.dPad.up.whenPressed(new ChangeShooterPower(true));
-    operatorController.dPad.down.whenPressed(new ChangeShooterPower(false));
-    operatorController.A.toggleWhenPressed(new Shoot());
+    operatorController.dPad.up.whenPressed(new ChangeShooterPower(shooter, true));
+    operatorController.dPad.down.whenPressed(new ChangeShooterPower(shooter, false));
+    operatorController.A.toggleWhenPressed(new Shoot(shooter));
 
     // Intake
-    operatorController.B.toggleWhenPressed(new RunIntake());
+    operatorController.B.toggleWhenPressed(new RunIntake(intake));
 
     // Climber
 
     // ControlPanel
-    operatorController.X.toggleWhenPressed(new RotationControl());
-    operatorController.Y.toggleWhenPressed(new PositionControl());
+    operatorController.X.toggleWhenPressed(new RotationControl(controlPanel));
+    operatorController.Y.toggleWhenPressed(new PositionControl(controlPanel));
 
     // Drive
-    driverController.RT.whenPressed(new ChangeGear(false));
-    driverController.RB.whenPressed(new ChangeGear(true));
+    driverController.RT.whenPressed(new ChangeGear(driveTrain, false));
+    driverController.RB.whenPressed(new ChangeGear(driveTrain, true));
     //driverController.LT.whileActive(new DriveStraight());
     // Still need to convert DriveStraight Command to New Command-Based
   }

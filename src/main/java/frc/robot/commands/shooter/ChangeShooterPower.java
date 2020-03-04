@@ -10,8 +10,8 @@ public class ChangeShooterPower extends InstantCommand {
     private boolean increase;
     private double amount;
 
-    public ChangeShooterPower(boolean increase) {
-        this.shooter = Robot.getRobotContainer().getShooter();
+    public ChangeShooterPower(Shooter shooter, boolean increase) {
+        this.shooter = shooter;
         this.increase = increase;
         addRequirements(shooter);
     }

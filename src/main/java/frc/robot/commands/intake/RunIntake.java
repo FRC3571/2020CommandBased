@@ -9,8 +9,8 @@ public class RunIntake extends CommandBase {
 
     private static final double kSpeed = 0.5;
 
-    public RunIntake() {
-        this.intake = Robot.getRobotContainer().getIntake();
+    public RunIntake(Intake intake) {
+        this.intake = intake;
         addRequirements(intake);
     }
 

@@ -8,8 +8,8 @@ public class Shoot extends CommandBase {
 
     private Shooter shooter;
 
-    public Shoot() {
-        this.shooter = Robot.getRobotContainer().getShooter();
+    public Shoot(Shooter shooter) {
+        this.shooter = shooter;
         addRequirements(shooter);
     }
 

@@ -102,7 +102,7 @@ public class DriveTrain extends SubsystemBase {
     driveModeChooser.addOption("Arcade - Two Joystick", DriveMode.ATWOJOY);
     driveModeChooser.addOption("Tank", DriveMode.TANK);
 
-    setDefaultCommand(new DriveJoystick());
+    setDefaultCommand(new DriveJoystick(this, Robot.getRobotContainer().getDriverController()));
   }
 
   @Override

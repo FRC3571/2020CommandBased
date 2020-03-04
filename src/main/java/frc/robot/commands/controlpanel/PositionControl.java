@@ -1,7 +1,6 @@
 package frc.robot.commands.controlpanel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.ControlPanel.Constants.CPColor;
 
@@ -11,8 +10,8 @@ public class PositionControl extends CommandBase {
     private double timeSpentOnColor;
     private double motorSpeed;
 
-    public PositionControl(){
-        this.controlPanel = Robot.getRobotContainer().getControlPanel();
+    public PositionControl(ControlPanel controlPanel){
+        this.controlPanel = controlPanel;
         addRequirements(controlPanel);
     }
 

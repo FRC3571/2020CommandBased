@@ -2,8 +2,10 @@ package frc.robot.commands.drivetrain;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.DriveTrain.Constants.Gear;
 import frc.robot.util.RobotMath;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
 
@@ -14,12 +16,15 @@ public class DriveStraightDistance extends CommandBase {
     private CANPIDController leftPID, rightPID;
     private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxVel, minVel, maxAcc, allowedErr;
     private double error;
+    private DriveTrain driveTrain;
+    private AHRS ahrs;
+    private Gear prevGear;
 
-    public DriveStraightDistance(double d) {
-
+    public DriveStraightDistance(DriveTrain driveTrain, double d) {
+        this.driveTrain = driveTrain;
         targetDistance = d;
-        leftPID = Robot.getRobotContainer().getDriveTrain().getLeftFrontMotor().getPIDController();
-        rightPID = Robot.getRobotContainer().getDriveTrain().getRightFrontMotor().getPIDController();
+        leftPID = driveTrain.getLeftFrontMotor().getPIDController();
+        rightPID = driveTrain.getRightFrontMotor().getPIDController();
 
         // PID coefficients
         kP = 5e-5;
@@ -61,22 +66,24 @@ public class DriveStraightDistance extends CommandBase {
         rightPID.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
         rightPID.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
-        addRequirements(Robot.getRobotContainer().getDriveTrain());
+        addRequirements(driveTrain);
     }
 
-    public DriveStraightDistance(double x, double y) {
+    public DriveStraightDistance(DriveTrain driveTrain, AHRS ahrs, double x, double y) {
+        this.driveTrain = driveTrain;
+        this.ahrs = ahrs;
         double xTarget = x;
         double yTarget = y;
 
         
         targetDistance = RobotMath.getDistanceFromPoint(xTarget, yTarget);
 
-        if (Math.abs(RobotMath.getAngleFromPoint(xTarget, yTarget) - Robot.getRobotContainer().getNAVX().getAHRS().getYaw()) > 90){
+        if (Math.abs(RobotMath.getAngleFromPoint(xTarget, yTarget) - ahrs.getYaw()) > 90){
             targetDistance *= -1;
         }
 
-        leftPID = Robot.getRobotContainer().getDriveTrain().getLeftFrontMotor().getPIDController();
-        rightPID = Robot.getRobotContainer().getDriveTrain().getRightFrontMotor().getPIDController();
+        leftPID = driveTrain.getLeftFrontMotor().getPIDController();
+        rightPID = driveTrain.getRightFrontMotor().getPIDController();
 
         // PID coefficients
         kP = 5e-5;
@@ -118,13 +125,14 @@ public class DriveStraightDistance extends CommandBase {
         rightPID.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
         rightPID.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
-        addRequirements(Robot.getRobotContainer().getDriveTrain());
+        addRequirements(driveTrain);
     }
 
     @Override
     public void initialize() {
-        Robot.getRobotContainer().getDriveTrain().resetEncoders();
-        Robot.getRobotContainer().getDriveTrain().setChosenGear(DriveTrain.Constants.Gear.FOURTH);
+        driveTrain.resetEncoders();
+        prevGear = driveTrain.getChosenGear();
+        driveTrain.setChosenGear(DriveTrain.Constants.Gear.FOURTH);
     }
 
     @Override
@@ -132,7 +140,7 @@ public class DriveStraightDistance extends CommandBase {
         leftPID.setReference(-targetDistance, ControlType.kSmartMotion);
         rightPID.setReference(targetDistance, ControlType.kSmartMotion);
 
-        error = Math.abs(targetDistance - Robot.getRobotContainer().getDriveTrain().getDistance());
+        error = Math.abs(targetDistance - driveTrain.getDistance());
     }
 
     @Override
@@ -142,7 +150,6 @@ public class DriveStraightDistance extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        //Robot.getInstance().getDrive().reset();
-        Robot.getRobotContainer().getDriveTrain().setChosenGear(DriveTrain.Constants.Gear.SECOND);
+        driveTrain.setChosenGear(prevGear);
     }
 }

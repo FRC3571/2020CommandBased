@@ -8,13 +8,9 @@ public class ChangeGear extends InstantCommand {
     private boolean up;
     private DriveTrain driveTrain;
 
-    public ChangeGear(boolean up) {
+    public ChangeGear(DriveTrain driveTrain, boolean up) {
+        this.driveTrain = driveTrain;
         this.up = up;
-    }
-
-    @Override
-    public void initialize() {
-        this.driveTrain = Robot.getRobotContainer().getDriveTrain();
     }
 
     @Override

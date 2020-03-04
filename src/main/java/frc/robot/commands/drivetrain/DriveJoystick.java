@@ -1,6 +1,5 @@
 package frc.robot.commands.drivetrain;
 
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.util.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -9,9 +8,9 @@ public class DriveJoystick extends CommandBase {
   private final DriveTrain driveTrain;
   private final XboxController controller;
 
-  public DriveJoystick() {
-    this.driveTrain = Robot.getRobotContainer().getDriveTrain();
-    this.controller = Robot.getRobotContainer().getDriverController();
+  public DriveJoystick(DriveTrain driveTrain, XboxController controller) {
+    this.driveTrain = driveTrain;
+    this.controller = controller;
     addRequirements(driveTrain);
   }
 

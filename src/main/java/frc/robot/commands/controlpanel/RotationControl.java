@@ -1,7 +1,6 @@
 package frc.robot.commands.controlpanel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.ControlPanel.Constants.CPColor;
 
@@ -13,8 +12,8 @@ public class RotationControl extends CommandBase {
     private CPColor startingColor;
     private boolean countedThisTime;
 
-    public RotationControl(){
-        this.controlPanel = Robot.getRobotContainer().getControlPanel();
+    public RotationControl(ControlPanel controlPanel){
+        this.controlPanel = controlPanel;
         addRequirements(controlPanel);
     }
 
