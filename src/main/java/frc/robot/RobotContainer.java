@@ -84,7 +84,7 @@ public class RobotContainer {
 
     // ControlPanel
     operatorController.X.toggleWhenPressed(new RotationControl(controlPanel));
-    operatorController.Y.toggleWhenPressed(new PositionControl(controlPanel));
+    operatorController.Y.toggleWhenPressed(new PositionControl(controlPanel, operatorController));
 
     // Drive
     driverController.RT.whenPressed(new ChangeGear(driveTrain, false));
