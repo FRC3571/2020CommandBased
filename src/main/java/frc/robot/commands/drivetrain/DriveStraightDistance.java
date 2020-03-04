@@ -1,6 +1,5 @@
 package frc.robot.commands.drivetrain;
 
-import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.DriveTrain.Constants.Gear;
 import frc.robot.util.RobotMath;

@@ -7,6 +7,7 @@ import frc.robot.commands.auto.Auto;
 import frc.robot.commands.controlpanel.PositionControl;
 import frc.robot.commands.controlpanel.RotationControl;
 import frc.robot.commands.drivetrain.ChangeGear;
+import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.shooter.ChangeShooterPower;
 import frc.robot.commands.shooter.Shoot;
@@ -88,8 +89,7 @@ public class RobotContainer {
     // Drive
     driverController.RT.whenPressed(new ChangeGear(driveTrain, false));
     driverController.RB.whenPressed(new ChangeGear(driveTrain, true));
-    //driverController.LT.whileActive(new DriveStraight());
-    // Still need to convert DriveStraight Command to New Command-Based
+    driverController.LT.whileActiveContinuous(new DriveStraight(driveTrain, driverController));
   }
 
   /**
