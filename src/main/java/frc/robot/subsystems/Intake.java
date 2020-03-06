@@ -13,14 +13,14 @@ public class Intake extends SubsystemBase {
 
         private static final class LeftSolenoid {
             private static final int kSolenoidPort = 1;
-            private static final int kFirstID = 1;
-            private static final int kSecondID = 6;
+            private static final int kFirstID = 2;
+            private static final int kSecondID = 3;
         }
 
         private static final class RightSolenoid {
             private static final int kSolenoidPort = 2;
-            private static final int kFirstID = 1;
-            private static final int kSecondID = 6;
+            private static final int kFirstID = 4;
+            private static final int kSecondID = 5;
         }
     }
 
