@@ -51,6 +51,7 @@ public class Intake extends SubsystemBase {
             RobotContainer.pneumatics.solenoidReverse(Constants.LeftSolenoid.kSolenoidPort);
             RobotContainer.pneumatics.solenoidReverse(Constants.RightSolenoid.kSolenoidPort);
         }
+        this.openState = openState;
     }
 
     public boolean getOpenState(){
