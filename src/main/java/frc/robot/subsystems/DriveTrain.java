@@ -27,6 +27,8 @@ public class DriveTrain extends SubsystemBase {
     private static final double kGearRatioSecond = 0.4;
     private static final double kGearRatioThird = 0.5;
 
+    private static final double kEncoderConversionRate = 0.09;
+
     // Drive Modes
     public enum DriveMode {
       AONEJOY, ATWOJOY, TANK,
@@ -87,6 +89,10 @@ public class DriveTrain extends SubsystemBase {
     leftBackEncoder = leftBackMotor.getEncoder();
     rightFrontEncoder = rightFrontMotor.getEncoder();
     rightBackEncoder = rightBackMotor.getEncoder();
+    leftFrontEncoder.setPositionConversionFactor(Constants.kEncoderConversionRate);
+    leftBackEncoder.setPositionConversionFactor(Constants.kEncoderConversionRate);
+    rightFrontEncoder.setPositionConversionFactor(Constants.kEncoderConversionRate);
+    rightBackEncoder.setPositionConversionFactor(Constants.kEncoderConversionRate);
 
     // Setting Position at 0, 0
     xPos = 0;
