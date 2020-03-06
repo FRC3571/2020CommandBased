@@ -8,6 +8,7 @@ import frc.robot.commands.controlpanel.RotationControl;
 import frc.robot.commands.drivetrain.ChangeGear;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.intake.ToggleIntake;
 import frc.robot.commands.shooter.ChangeShooterBottomSpeed;
 import frc.robot.commands.shooter.ChangeShooterSpeedRatio;
 import frc.robot.commands.Shoot;
@@ -84,12 +85,13 @@ public class RobotContainer {
 
     // Intake
     operatorController.B.toggleWhenPressed(new RunIntake(intake));
+    operatorController.Y.whenPressed(new ToggleIntake(intake));
 
     // Climber
 
     // ControlPanel
-    operatorController.X.toggleWhenPressed(new RotationControl(controlPanel));
-    operatorController.Y.toggleWhenPressed(new PositionControl(controlPanel, operatorController));
+    //operatorController.X.toggleWhenPressed(new RotationControl(controlPanel));
+    //operatorController.Y.toggleWhenPressed(new PositionControl(controlPanel, operatorController));
 
     // Drive
     driverController.RT.whenPressed(new ChangeGear(driveTrain, false));

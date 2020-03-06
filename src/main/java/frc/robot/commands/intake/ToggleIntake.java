@@ -7,9 +7,9 @@ public class ToggleIntake extends InstantCommand {
     private final Intake intake;
     private final boolean openState;
 
-    public ToggleIntake(final Intake intake, final boolean openState) {
+    public ToggleIntake(final Intake intake) {
         this.intake = intake;
-        this.openState = openState;
+        this.openState = !intake.getOpenState();
         addRequirements(intake);
     }
 

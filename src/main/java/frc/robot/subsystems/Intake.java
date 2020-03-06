@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -26,17 +25,17 @@ public class Intake extends SubsystemBase {
     }
 
     private final VictorSPX motor;
-    private boolean intakeOpenState;
+    private boolean openState;
 
     public Intake() {
         motor = new VictorSPX(Constants.kMotorID);
-        intakeOpenState = false;
+        openState = false;
         RobotContainer.pneumatics.createSolenoid(Constants.LeftSolenoid.kSolenoidPort, Constants.LeftSolenoid.kFirstID,
                 Constants.LeftSolenoid.kSecondID);
         RobotContainer.pneumatics.createSolenoid(Constants.RightSolenoid.kSolenoidPort,
                 Constants.RightSolenoid.kFirstID, Constants.RightSolenoid.kSecondID);
 
-        setSolenoids(intakeOpenState);
+        setSolenoids(openState);
 
     }
 
@@ -52,5 +51,9 @@ public class Intake extends SubsystemBase {
             RobotContainer.pneumatics.solenoidReverse(Constants.LeftSolenoid.kSolenoidPort);
             RobotContainer.pneumatics.solenoidReverse(Constants.RightSolenoid.kSolenoidPort);
         }
+    }
+
+    public boolean getOpenState(){
+        return openState;
     }
 }
