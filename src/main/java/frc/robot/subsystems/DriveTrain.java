@@ -21,7 +21,7 @@ public class DriveTrain extends SubsystemBase {
     private static final int kLeftFrontID = 12;
     private static final int kLeftBackID = 13;
     private static final int kRightFrontID = 22;
-    private static final int kRightBackID = 21;
+    private static final int kRightBackID = 23;
 
     private static final double kGearRatioFirst = 0.3;
     private static final double kGearRatioSecond = 0.4;
