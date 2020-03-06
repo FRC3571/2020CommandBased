@@ -12,6 +12,7 @@ import frc.robot.commands.shooter.ChangeShooterBottomSpeed;
 import frc.robot.commands.shooter.ChangeShooterSpeedRatio;
 import frc.robot.commands.Shoot;
 import frc.robot.components.NAVX;
+import frc.robot.components.Pneumatics;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -46,6 +47,7 @@ public class RobotContainer {
   public final static Shooter shooter = new Shooter();
   public final static ControlPanel controlPanel = new ControlPanel();
   public final static Serializer serializer = new Serializer();
+  public final static Pneumatics pneumatics = new Pneumatics();
 
   // Initializing Auto Command
   public final Command autoCommand = new Auto();

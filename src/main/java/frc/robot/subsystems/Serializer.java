@@ -9,16 +9,22 @@ public class Serializer extends SubsystemBase {
 
     // Constants used in this class
     public static final class Constants {
-        private static final int kMotorID = 1;
+        private static final int kLeftMotorID = 1;
+        private static final int kRightMotorID = 1;
     }
 
-    private VictorSPX motor;
+    private VictorSPX leftMotor, rightMotor;
 
     public Serializer() {
-        motor = new VictorSPX(Constants.kMotorID);
+        leftMotor = new VictorSPX(Constants.kLeftMotorID);
+        rightMotor = new VictorSPX(Constants.kRightMotorID);
+
+        leftMotor.setInverted(false);
+        rightMotor.setInverted(false);
     }
 
     public void setMotor(double speed) {
-        motor.set(ControlMode.PercentOutput, speed);
+        leftMotor.set(ControlMode.PercentOutput, speed);
+        rightMotor.set(ControlMode.PercentOutput, speed);
     }
 }
