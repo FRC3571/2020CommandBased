@@ -31,10 +31,6 @@ public class RobotContainer {
   public static final class Constants {
     public static final int kOperatorController = 1;
     public static final int kDriverController = 0;
-
-    public enum ColorAssignment {
-      RED, YELLOW, GREEN, BLUE, NONE
-    }
   }
 
   // Initalizing Controllers
@@ -64,6 +60,10 @@ public class RobotContainer {
   public void log(){
     driveTrain.log();
     shooter.log();
+  }
+
+  public void refresh(){
+    controlPanel.refresh();
   }
 
   /**
