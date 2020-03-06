@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
         topMotor.setInverted(false);
         bottomMotor.setInverted(true);
 
-        topBottomRatio = 0.85;
+        topBottomRatio = 0.7;
         bottomSpeed = 0.7;
         topSpeed = bottomSpeed * topBottomRatio;
     }
@@ -40,6 +40,7 @@ public class Shooter extends SubsystemBase {
     public void log() {
         SmartDashboard.putNumber("Shooter/TopMotor/Speed", topSpeed);
         SmartDashboard.putNumber("Shooter/BottomMotor/Speed", bottomSpeed);
+        SmartDashboard.putNumber("Shooter/TopBottomRatio", topBottomRatio);
     }
 
     public void setMotors(final double topSpeed, final double bottomSpeed) {
@@ -66,5 +67,6 @@ public class Shooter extends SubsystemBase {
 
     public void setTopBottomRatio(final double topBottomRatio) {
         this.topBottomRatio = Math.max(0, Math.min(topBottomRatio, 1));
+        setSpeed(bottomSpeed);
     }
 }
