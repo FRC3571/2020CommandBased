@@ -1,39 +1,39 @@
 package frc.robot.util;
 
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class RobotMath {
 
     // Maps a double in a certain range to another range
-    public static double mapDouble(double x, double in_min, double in_max, double out_min, double out_max) {
+    public static double mapDouble(double x, final double in_min, final double in_max, final double out_min,
+            final double out_max) {
         x = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 
         return x;
     }
 
     // Calculates the angle between a robot and a point
-    public static double getAngleFromPoint(double x, double y) {
-        double robotX = RobotContainer.driveTrain.getXPos();
-        double robotY = RobotContainer.driveTrain.getYPos();
+    public static double getAngleFromPoint(final double x, final double y) {
+        final double robotX = RobotContainer.driveTrain.getXPos();
+        final double robotY = RobotContainer.driveTrain.getYPos();
 
-        double xDiff = x - robotX;
-        double yDiff = y - robotY;
+        final double xDiff = x - robotX;
+        final double yDiff = y - robotY;
 
-        double angle = Math.toDegrees(Math.atan2(xDiff, yDiff));
+        final double angle = Math.toDegrees(Math.atan2(xDiff, yDiff));
 
         return angle;
     }
 
     // Calculates the distance to a point
-    public static double getDistanceFromPoint(double x, double y) {
+    public static double getDistanceFromPoint(final double x, final double y) {
         double distance;
 
-        double robotX = RobotContainer.driveTrain.getXPos();
-        double robotY = RobotContainer.driveTrain.getYPos();
+        final double robotX = RobotContainer.driveTrain.getXPos();
+        final double robotY = RobotContainer.driveTrain.getYPos();
 
-        double xDiff = x - robotX;
-        double yDiff = y - robotY;
+        final double xDiff = x - robotX;
+        final double yDiff = y - robotY;
 
         distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
 

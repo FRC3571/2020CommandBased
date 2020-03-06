@@ -12,14 +12,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveStraightDistance extends CommandBase {
     private double targetDistance;
-    private CANPIDController leftPID, rightPID;
-    private double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxVel, minVel, maxAcc, allowedErr;
+    private final CANPIDController leftPID, rightPID;
+    private final double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxVel;
+    private double minVel;
+    private final double maxAcc;
+    private final double allowedErr;
     private double error;
-    private DriveTrain driveTrain;
+    private final DriveTrain driveTrain;
     private AHRS ahrs;
     private Gear prevGear;
 
-    public DriveStraightDistance(DriveTrain driveTrain, double d) {
+    public DriveStraightDistance(final DriveTrain driveTrain, final double d) {
         this.driveTrain = driveTrain;
         targetDistance = d;
         leftPID = driveTrain.getLeftFrontMotor().getPIDController();
@@ -54,7 +57,7 @@ public class DriveStraightDistance extends CommandBase {
         rightPID.setFF(kFF);
         rightPID.setOutputRange(kMinOutput, kMaxOutput);
 
-        int smartMotionSlot = 0;
+        final int smartMotionSlot = 0;
         leftPID.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
         leftPID.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
         leftPID.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
@@ -68,16 +71,15 @@ public class DriveStraightDistance extends CommandBase {
         addRequirements(driveTrain);
     }
 
-    public DriveStraightDistance(DriveTrain driveTrain, AHRS ahrs, double x, double y) {
+    public DriveStraightDistance(final DriveTrain driveTrain, final AHRS ahrs, final double x, final double y) {
         this.driveTrain = driveTrain;
         this.ahrs = ahrs;
-        double xTarget = x;
-        double yTarget = y;
+        final double xTarget = x;
+        final double yTarget = y;
 
-        
         targetDistance = RobotMath.getDistanceFromPoint(xTarget, yTarget);
 
-        if (Math.abs(RobotMath.getAngleFromPoint(xTarget, yTarget) - ahrs.getYaw()) > 90){
+        if (Math.abs(RobotMath.getAngleFromPoint(xTarget, yTarget) - ahrs.getYaw()) > 90) {
             targetDistance *= -1;
         }
 
@@ -113,7 +115,7 @@ public class DriveStraightDistance extends CommandBase {
         rightPID.setFF(kFF);
         rightPID.setOutputRange(kMinOutput, kMaxOutput);
 
-        int smartMotionSlot = 0;
+        final int smartMotionSlot = 0;
         leftPID.setSmartMotionMaxVelocity(maxVel, smartMotionSlot);
         leftPID.setSmartMotionMinOutputVelocity(minVel, smartMotionSlot);
         leftPID.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
@@ -148,7 +150,7 @@ public class DriveStraightDistance extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         driveTrain.setChosenGear(prevGear);
     }
 }

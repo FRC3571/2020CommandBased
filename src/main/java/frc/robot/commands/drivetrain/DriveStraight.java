@@ -11,7 +11,7 @@ public class DriveStraight extends PIDCommand {
     private static final double kI = 0.000;
     private static final double kD = 0.00;
 
-    public DriveStraight(DriveTrain driveTrain, XboxController controller) {
+    public DriveStraight(final DriveTrain driveTrain, final XboxController controller) {
         super(new PIDController(kP, kI, kD), driveTrain::getDriveStraightError, 0, output -> 
         driveTrain.arcadeDrive(controller.LT.getX(), output, false), driveTrain);
         driveTrain.resetEncoders();

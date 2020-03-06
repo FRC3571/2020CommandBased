@@ -8,7 +8,7 @@ public class RunIntake extends CommandBase {
 
     private static final double kSpeed = 0.5;
 
-    public RunIntake(Intake intake) {
+    public RunIntake(final Intake intake) {
         this.intake = intake;
         addRequirements(intake);
     }
@@ -19,7 +19,7 @@ public class RunIntake extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         intake.setMotor(0);
     }
 }

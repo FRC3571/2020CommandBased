@@ -10,11 +10,12 @@ import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.shooter.ChangeShooterBottomSpeed;
 import frc.robot.commands.shooter.ChangeShooterSpeedRatio;
-import frc.robot.commands.shooter.Shoot;
+import frc.robot.commands.Shoot;
 import frc.robot.components.NAVX;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Serializer;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -48,6 +49,7 @@ public class RobotContainer {
   public final static Intake intake = new Intake();
   public final static Shooter shooter = new Shooter();
   public final static ControlPanel controlPanel = new ControlPanel();
+  public final static Serializer serializer = new Serializer();
 
   // Initializing Auto Command
   public final Command autoCommand = new Auto();
@@ -76,7 +78,7 @@ public class RobotContainer {
     operatorController.dPad.down.whenPressed(new ChangeShooterSpeedRatio(shooter, false));
     operatorController.dPad.right.whenPressed(new ChangeShooterBottomSpeed(shooter, true));
     operatorController.dPad.left.whenPressed(new ChangeShooterBottomSpeed(shooter, false));
-    operatorController.A.toggleWhenPressed(new Shoot(shooter));
+    operatorController.A.toggleWhenPressed(new Shoot(shooter, serializer));
 
     // Intake
     operatorController.B.toggleWhenPressed(new RunIntake(intake));

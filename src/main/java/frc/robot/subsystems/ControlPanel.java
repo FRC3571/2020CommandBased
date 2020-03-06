@@ -24,7 +24,7 @@ public class ControlPanel extends SubsystemBase {
         }
     }
 
-    private VictorSPX motor;
+    private final VictorSPX motor;
     private final I2C.Port i2cPort;
     private final ColorSensorV3 m_colorSensor;
     private final ColorMatch m_colorMatcher;
@@ -51,8 +51,8 @@ public class ControlPanel extends SubsystemBase {
     }
 
     public CPColor findColor() {
-        Color detectedColor = m_colorSensor.getColor();
-        ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+        final Color detectedColor = m_colorSensor.getColor();
+        final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
         CPColor result = CPColor.NONE;
 
         if (match.color == kBlue) {
@@ -74,7 +74,7 @@ public class ControlPanel extends SubsystemBase {
         if (gameData.length() > 0) {
             switch (gameData.charAt(0)) {
             case 'B':
-            colorAssignment = CPColor.BLUE;
+                colorAssignment = CPColor.BLUE;
                 break;
             case 'G':
                 colorAssignment = CPColor.GREEN;
@@ -93,7 +93,7 @@ public class ControlPanel extends SubsystemBase {
         }
     }
 
-    public void setMotor(double speed){
+    public void setMotor(final double speed) {
         motor.set(ControlMode.PercentOutput, speed);
     }
 

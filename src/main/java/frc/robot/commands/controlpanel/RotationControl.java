@@ -6,13 +6,13 @@ import frc.robot.subsystems.ControlPanel.Constants.CPColor;
 
 public class RotationControl extends CommandBase {
 
-    private ControlPanel controlPanel;
+    private final ControlPanel controlPanel;
     private int spinCount;
     private double motorSpeed;
     private CPColor startingColor;
     private boolean countedThisTime;
 
-    public RotationControl(ControlPanel controlPanel){
+    public RotationControl(final ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
         addRequirements(controlPanel);
     }
@@ -28,11 +28,10 @@ public class RotationControl extends CommandBase {
     public void execute() {
         controlPanel.setMotor(motorSpeed);
 
-        if (controlPanel.findColor() == startingColor && countedThisTime == false){
+        if (controlPanel.findColor() == startingColor && countedThisTime == false) {
             spinCount++;
             countedThisTime = true;
-        }
-        else if (controlPanel.findColor() != startingColor && countedThisTime == true){
+        } else if (controlPanel.findColor() != startingColor && countedThisTime == true) {
             countedThisTime = false;
         }
     }
@@ -43,7 +42,7 @@ public class RotationControl extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         controlPanel.setMotor(0);
     }
 

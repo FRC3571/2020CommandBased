@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -14,9 +13,9 @@ public class Shooter extends SubsystemBase {
         private static final int kBottomMotorID = 11;
     }
 
-    private CANSparkMax topMotor, bottomMotor;
+    private final CANSparkMax topMotor, bottomMotor;
 
-    private CANEncoder topEncoder, bottomEncoder;
+    // private CANEncoder topEncoder, bottomEncoder;
 
     private double topSpeed, bottomSpeed, topBottomRatio;
 
@@ -27,8 +26,8 @@ public class Shooter extends SubsystemBase {
         topMotor.restoreFactoryDefaults();
         bottomMotor.restoreFactoryDefaults();
 
-        topEncoder = topMotor.getEncoder();
-        bottomEncoder = bottomMotor.getEncoder();
+        // topEncoder = topMotor.getEncoder();
+        // bottomEncoder = bottomMotor.getEncoder();
 
         topMotor.setInverted(false);
         bottomMotor.setInverted(true);
@@ -43,7 +42,7 @@ public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber("Shooter/BottomMotor/Speed", bottomSpeed);
     }
 
-    public void setMotors(double topSpeed, double bottomSpeed) {
+    public void setMotors(final double topSpeed, final double bottomSpeed) {
         topMotor.set(topSpeed);
         bottomMotor.set(bottomSpeed);
     }
@@ -61,11 +60,11 @@ public class Shooter extends SubsystemBase {
         return topSpeed;
     }
 
-    public double getTopBottomRatio(){
+    public double getTopBottomRatio() {
         return topBottomRatio;
     }
 
-    public void setTopBottomRatio(double topBottomRatio){
+    public void setTopBottomRatio(final double topBottomRatio) {
         this.topBottomRatio = Math.max(0, Math.min(topBottomRatio, 1));
     }
 }

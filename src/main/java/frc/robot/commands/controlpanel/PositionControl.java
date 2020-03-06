@@ -8,14 +8,14 @@ import frc.robot.util.XboxController;
 
 public class PositionControl extends CommandBase {
     
-    private ControlPanel controlPanel;
-    private XboxController controller;
+    private final ControlPanel controlPanel;
+    private final XboxController controller;
     private CPColor target, first, second, third;
     private double timeSpentOnColor, firstTime, secondTime, thirdTime, averageTime, targetTime;
     private double motorSpeed;
     private boolean onTarget, passedTarget, onColor;
 
-    public PositionControl(ControlPanel controlPanel, XboxController controller) {
+    public PositionControl(final ControlPanel controlPanel, final XboxController controller) {
         this.controlPanel = controlPanel;
         this.controller = controller;
         addRequirements(controlPanel);
@@ -103,7 +103,7 @@ public class PositionControl extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         controller.setRumble(0.5);
         Timer.delay(0.5);
         controller.setRumble(0);

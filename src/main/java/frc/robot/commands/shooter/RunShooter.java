@@ -3,11 +3,11 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class Shoot extends CommandBase {
+public class RunShooter extends CommandBase {
 
-    private Shooter shooter;
+    private final Shooter shooter;
 
-    public Shoot(Shooter shooter) {
+    public RunShooter(final Shooter shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
     }
@@ -18,7 +18,7 @@ public class Shoot extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         shooter.setMotors(0, 0);
     }
 }

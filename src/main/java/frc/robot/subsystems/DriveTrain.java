@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.drivetrain.DriveJoystick;
 import frc.robot.subsystems.DriveTrain.Constants.*;
@@ -41,19 +40,19 @@ public class DriveTrain extends SubsystemBase {
 
   private DriveMode chosenDrive;
   private Gear chosenGear;
-  private SendableChooser<DriveMode> driveModeChooser;
+  private final SendableChooser<DriveMode> driveModeChooser;
 
   // SparkMax Objects
-  private CANSparkMax leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor;
+  private final CANSparkMax leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor;
 
   // Speed Controller Groups
   SpeedControllerGroup leftMotors, rightMotors;
 
   // Drive Mechanism for Tank-Style Drive-Train
-  private DifferentialDrive drive;
+  private final DifferentialDrive drive;
 
   // Distance Encoders
-  private CANEncoder leftFrontEncoder, rightFrontEncoder, leftBackEncoder, rightBackEncoder;
+  private final CANEncoder leftFrontEncoder, rightFrontEncoder, leftBackEncoder, rightBackEncoder;
 
   private double distance, leftDistance, rightDistance, xPos, yPos;
 
@@ -65,7 +64,7 @@ public class DriveTrain extends SubsystemBase {
     leftBackMotor = new CANSparkMax(Constants.kLeftBackID, MotorType.kBrushless);
 
     rightFrontMotor.restoreFactoryDefaults();
-    
+
     rightBackMotor.restoreFactoryDefaults();
     leftFrontMotor.restoreFactoryDefaults();
     leftBackMotor.restoreFactoryDefaults();
@@ -113,7 +112,7 @@ public class DriveTrain extends SubsystemBase {
     log();
   }
 
-  public void arcadeDrive(double throttle, double rotate, boolean squaredRotation) {
+  public void arcadeDrive(double throttle, double rotate, final boolean squaredRotation) {
     switch (chosenGear) {
     case FIRST:
       throttle *= Constants.kGearRatioFirst;
@@ -138,7 +137,7 @@ public class DriveTrain extends SubsystemBase {
     drive.arcadeDrive(throttle, rotate, squaredRotation);
   }
 
-  public void tankdrive(double left, double right, boolean squaredRotation) {
+  public void tankdrive(double left, double right, final boolean squaredRotation) {
     switch (chosenGear) {
     case FIRST:
       left *= Constants.kGearRatioFirst;
@@ -177,12 +176,12 @@ public class DriveTrain extends SubsystemBase {
 
   private void updateDistance() {
     double changeinDistance = 0;
-    double prevDistance = distance;
+    final double prevDistance = distance;
     leftDistance = -leftFrontEncoder.getPosition(); // double check this is working properly when you can test
     rightDistance = rightFrontEncoder.getPosition();
     distance = (leftDistance + rightDistance) / 2;
 
-    AHRS navx = RobotContainer.navx.getAHRS();
+    final AHRS navx = RobotContainer.navx.getAHRS();
 
     double angle = navx.getYaw();
 
@@ -224,7 +223,7 @@ public class DriveTrain extends SubsystemBase {
     return chosenGear;
   }
 
-  public void setChosenGear(Gear chosenGear) {
+  public void setChosenGear(final Gear chosenGear) {
     this.chosenGear = chosenGear;
   }
 
@@ -232,7 +231,7 @@ public class DriveTrain extends SubsystemBase {
     return chosenDrive;
   }
 
-  public void setChosenDrive(DriveMode chosenDrive) {
+  public void setChosenDrive(final DriveMode chosenDrive) {
     this.chosenDrive = chosenDrive;
   }
 

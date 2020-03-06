@@ -6,10 +6,10 @@ import frc.robot.subsystems.Shooter;
 public class ChangeShooterSpeedRatio extends InstantCommand {
 
     private final Shooter shooter;
-    private boolean increase;
+    private final boolean increase;
     private double amount;
 
-    public ChangeShooterSpeedRatio(Shooter shooter, boolean increase) {
+    public ChangeShooterSpeedRatio(final Shooter shooter, final boolean increase) {
         this.shooter = shooter;
         this.increase = increase;
         addRequirements(shooter);

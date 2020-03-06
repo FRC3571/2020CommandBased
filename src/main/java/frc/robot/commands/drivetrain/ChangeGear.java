@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DriveTrain;
 
 public class ChangeGear extends InstantCommand {
-    private boolean up;
-    private DriveTrain driveTrain;
+    private final boolean up;
+    private final DriveTrain driveTrain;
 
-    public ChangeGear(DriveTrain driveTrain, boolean up) {
+    public ChangeGear(final DriveTrain driveTrain, final boolean up) {
         this.driveTrain = driveTrain;
         this.up = up;
     }
