@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
     // Constants used in this class
     public static final class Constants {
-        private static final int kTopMotorID = 11;
-        private static final int kBottomMotorID = 21;
+        private static final int kTopMotorID = 21;
+        private static final int kBottomMotorID = 11;
     }
 
     private CANSparkMax topMotor, bottomMotor;
@@ -33,8 +33,8 @@ public class Shooter extends SubsystemBase {
         topMotor.setInverted(false);
         bottomMotor.setInverted(true);
 
-        topBottomRatio = 0.75;
-        bottomSpeed = 1;
+        topBottomRatio = 0.85;
+        bottomSpeed = 0.7;
         topSpeed = bottomSpeed * topBottomRatio;
     }
 
@@ -57,15 +57,15 @@ public class Shooter extends SubsystemBase {
         return bottomSpeed;
     }
 
-    public void setBottomSpeed(double bottomSpeed) {
-        this.bottomSpeed = bottomSpeed;
-    }
-
     public double getTopSpeed() {
         return topSpeed;
     }
 
-    public void setTopSpeed(double topSpeed) {
-        this.topSpeed = topSpeed;
+    public double getTopBottomRatio(){
+        return topBottomRatio;
+    }
+
+    public void setTopBottomRatio(double topBottomRatio){
+        this.topBottomRatio = Math.max(0, Math.min(topBottomRatio, 1));
     }
 }

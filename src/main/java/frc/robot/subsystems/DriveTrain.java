@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.commands.drivetrain.DriveJoystick;
 import frc.robot.subsystems.DriveTrain.Constants.*;
 import frc.robot.util.RobotMath;
@@ -102,7 +103,7 @@ public class DriveTrain extends SubsystemBase {
     driveModeChooser.addOption("Arcade - Two Joystick", DriveMode.ATWOJOY);
     driveModeChooser.addOption("Tank", DriveMode.TANK);
 
-    setDefaultCommand(new DriveJoystick(this, Robot.getRobotContainer().getDriverController()));
+    setDefaultCommand(new DriveJoystick(this, RobotContainer.driverController));
   }
 
   @Override
@@ -181,7 +182,7 @@ public class DriveTrain extends SubsystemBase {
     rightDistance = rightFrontEncoder.getPosition();
     distance = (leftDistance + rightDistance) / 2;
 
-    AHRS navx = Robot.getRobotContainer().getNAVX().getAHRS();
+    AHRS navx = RobotContainer.navx.getAHRS();
 
     double angle = navx.getYaw();
 

@@ -1,6 +1,7 @@
 package frc.robot.util;
 
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class RobotMath {
 
@@ -13,8 +14,8 @@ public class RobotMath {
 
     // Calculates the angle between a robot and a point
     public static double getAngleFromPoint(double x, double y) {
-        double robotX = Robot.getRobotContainer().getDriveTrain().getXPos();
-        double robotY = Robot.getRobotContainer().getDriveTrain().getYPos();
+        double robotX = RobotContainer.driveTrain.getXPos();
+        double robotY = RobotContainer.driveTrain.getYPos();
 
         double xDiff = x - robotX;
         double yDiff = y - robotY;
@@ -28,8 +29,8 @@ public class RobotMath {
     public static double getDistanceFromPoint(double x, double y) {
         double distance;
 
-        double robotX = Robot.getRobotContainer().getDriveTrain().getXPos();
-        double robotY = Robot.getRobotContainer().getDriveTrain().getYPos();
+        double robotX = RobotContainer.driveTrain.getXPos();
+        double robotY = RobotContainer.driveTrain.getYPos();
 
         double xDiff = x - robotX;
         double yDiff = y - robotY;
@@ -40,7 +41,7 @@ public class RobotMath {
     }
 
     public static double fixAngle(double angle) {
-        if (Math.abs(angle - Robot.getRobotContainer().getNAVX().getAHRS().getYaw()) > 90) {
+        if (Math.abs(angle - RobotContainer.navx.getAHRS().getYaw()) > 90) {
             if (angle >= 0 && angle <= 180) {
                 angle -= 180;
             } else {

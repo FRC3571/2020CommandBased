@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import frc.robot.util.XboxController;
 import frc.robot.commands.auto.Auto;
 import frc.robot.commands.controlpanel.PositionControl;
@@ -9,7 +8,8 @@ import frc.robot.commands.controlpanel.RotationControl;
 import frc.robot.commands.drivetrain.ChangeGear;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.RunIntake;
-import frc.robot.commands.shooter.ChangeShooterPower;
+import frc.robot.commands.shooter.ChangeShooterBottomSpeed;
+import frc.robot.commands.shooter.ChangeShooterSpeedRatio;
 import frc.robot.commands.shooter.Shoot;
 import frc.robot.components.NAVX;
 import frc.robot.subsystems.ControlPanel;
@@ -37,21 +37,20 @@ public class RobotContainer {
   }
 
   // Initalizing Controllers
-  private final XboxController driverController = new XboxController(Constants.kDriverController);
-  private final XboxController operatorController = new XboxController(Constants.kOperatorController);
+  public final static XboxController driverController = new XboxController(Constants.kDriverController);
+  public final static XboxController operatorController = new XboxController(Constants.kOperatorController);
 
   // Initializing Other Components
-  private final PowerDistributionPanel powerDistrubitionPanel = new PowerDistributionPanel();
-  private final NAVX navx = new NAVX();
+  public final static NAVX navx = new NAVX();
 
   // Initializing Subsystems
-  private final DriveTrain driveTrain = new DriveTrain();
-  private final Intake intake = new Intake();
-  private final Shooter shooter = new Shooter();
-  private final ControlPanel controlPanel = new ControlPanel();
+  public final static DriveTrain driveTrain = new DriveTrain();
+  public final static Intake intake = new Intake();
+  public final static Shooter shooter = new Shooter();
+  public final static ControlPanel controlPanel = new ControlPanel();
 
   // Initializing Auto Command
-  private final Command autoCommand = new Auto();
+  public final Command autoCommand = new Auto();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -73,8 +72,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Shooter
-    operatorController.dPad.up.whenPressed(new ChangeShooterPower(shooter, true));
-    operatorController.dPad.down.whenPressed(new ChangeShooterPower(shooter, false));
+    operatorController.dPad.up.whenPressed(new ChangeShooterSpeedRatio(shooter, true));
+    operatorController.dPad.down.whenPressed(new ChangeShooterSpeedRatio(shooter, false));
+    operatorController.dPad.right.whenPressed(new ChangeShooterBottomSpeed(shooter, true));
+    operatorController.dPad.left.whenPressed(new ChangeShooterBottomSpeed(shooter, false));
     operatorController.A.toggleWhenPressed(new Shoot(shooter));
 
     // Intake
@@ -101,30 +102,4 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return autoCommand;
   }
-
-  // Getters
-  public XboxController getDriverController() {
-    return driverController;
-  }
-
-  public DriveTrain getDriveTrain() {
-    return driveTrain;
-  }
-
-  public Intake getIntake() {
-    return intake;
-  }
-
-  public Shooter getShooter() {
-    return shooter;
-  }
-
-  public ControlPanel getControlPanel(){
-    return controlPanel;
-  }
-
-  public NAVX getNAVX() {
-    return navx;
-  }
-
 }

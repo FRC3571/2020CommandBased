@@ -3,13 +3,13 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Shooter;
 
-public class ChangeShooterPower extends InstantCommand {
+public class ChangeShooterBottomSpeed extends InstantCommand {
 
     private final Shooter shooter;
     private boolean increase;
     private double amount;
 
-    public ChangeShooterPower(Shooter shooter, boolean increase) {
+    public ChangeShooterBottomSpeed(Shooter shooter, boolean increase) {
         this.shooter = shooter;
         this.increase = increase;
         addRequirements(shooter);
