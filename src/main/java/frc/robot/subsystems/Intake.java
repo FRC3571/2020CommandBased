@@ -9,7 +9,7 @@ import frc.robot.RobotContainer;
 public class Intake extends SubsystemBase {
     // Constants used in this class
     public static final class Constants {
-        private static final int kMotorID = 1;
+        private static final int kMotorID = 3;
 
         private static final class LeftSolenoid {
             private static final int kSolenoidPort = 1;
