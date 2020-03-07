@@ -88,7 +88,6 @@ public class RobotContainer {
     // Intake
     operatorController.B.toggleWhenPressed(new RunIntake(intake));
     operatorController.Y.whenPressed(new ToggleIntake(intake));
-    operatorController.X.toggleWhenPressed(new RunSerializer(serializer));
 
     // Climber
 
