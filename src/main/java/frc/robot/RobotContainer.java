@@ -9,6 +9,7 @@ import frc.robot.commands.drivetrain.ChangeGear;
 import frc.robot.commands.drivetrain.DriveStraight;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.ToggleIntake;
+import frc.robot.commands.serializer.RunSerializer;
 import frc.robot.commands.shooter.ChangeShooterBottomSpeed;
 import frc.robot.commands.shooter.ChangeShooterSpeedRatio;
 import frc.robot.commands.Shoot;
@@ -43,12 +44,12 @@ public class RobotContainer {
   public final static NAVX navx = new NAVX();
 
   // Initializing Subsystems
+  public final static Pneumatics pneumatics = new Pneumatics();
   public final static DriveTrain driveTrain = new DriveTrain();
   public final static Intake intake = new Intake();
   public final static Shooter shooter = new Shooter();
   public final static ControlPanel controlPanel = new ControlPanel();
   public final static Serializer serializer = new Serializer();
-  public final static Pneumatics pneumatics = new Pneumatics();
 
   // Initializing Auto Command
   public final Command autoCommand = new Auto();
@@ -63,6 +64,7 @@ public class RobotContainer {
   public void log(){
     driveTrain.log();
     shooter.log();
+    intake.log();
   }
 
   public void refresh(){
@@ -86,6 +88,7 @@ public class RobotContainer {
     // Intake
     operatorController.B.toggleWhenPressed(new RunIntake(intake));
     operatorController.Y.whenPressed(new ToggleIntake(intake));
+    operatorController.X.toggleWhenPressed(new RunSerializer(serializer));
 
     // Climber
 

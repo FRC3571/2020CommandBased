@@ -2,6 +2,7 @@ package frc.robot.components;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Relay;
 
 import java.util.ArrayList;
 
@@ -24,19 +25,9 @@ public class Pneumatics {
         solenoidList = new ArrayList<>();
     }
 
-    public void start() {
-        compressor.setClosedLoopControl(true);
-    }
-
-    public void stop() {
-        compressor.setClosedLoopControl(false);
-    }
-
     public void createSolenoid(final int solenoidId, final int id1, final int id2) {
 
         solenoidList.add(solenoidId, new DoubleSolenoid(id1, id2));
-
-        solenoidList.get(solenoidId).set(DoubleSolenoid.Value.kReverse);
 
         SHIFTSTATE = false;
     }
