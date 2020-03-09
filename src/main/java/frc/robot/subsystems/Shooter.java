@@ -30,7 +30,7 @@ public class Shooter extends SubsystemBase {
         // bottomEncoder = bottomMotor.getEncoder();
 
         topMotor.setInverted(false);
-        bottomMotor.setInverted(true);
+        bottomMotor.setInverted(false);
 
         topBottomRatio = 0.7;
         bottomSpeed = 0.7;

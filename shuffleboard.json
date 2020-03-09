@@ -1,0 +1,370 @@
+{
+  "tabPane": [
+    {
+      "title": "Elevator",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "Smartdashboard/Elevator",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Elevator/Lift Distance",
+              "_title": "SmartDashboard/Elevator/Lift Distance"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "DriveTrain",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "SmartDashboard/DriveTrain",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": false,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/DriveTrain/LeftEncoder",
+              "_title": "Left Encoder"
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///SmartDashboard/DriveTrain/RightEncoder",
+              "_title": "Right Encoder"
+            }
+          },
+          "0,2": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Position",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "TOP",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Position/xPos",
+                  "_title": "SmartDashboard/DriveTrain/Position/xPos"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Position/Distance",
+                  "_title": "SmartDashboard/DriveTrain/Position/Distance"
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Position/yPos",
+                  "_title": "SmartDashboard/DriveTrain/Position/yPos"
+                },
+                "1,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Position/Yaw",
+                  "_title": "SmartDashboard/DriveTrain/Position/Yaw"
+                }
+              }
+            }
+          },
+          "4,0": {
+            "size": [
+              5,
+              4
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Drive",
+              "Layout/Number of columns": 2,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "TOP",
+              "_children": {
+                "0,0": {
+                  "_type": "ComboBox Chooser",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Drive/Choose Drive",
+                  "_title": "SmartDashboard/DriveTrain/Drive/Choose Drive"
+                },
+                "1,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Drive/Gear",
+                  "_title": "SmartDashboard/DriveTrain/Drive/Gear"
+                },
+                "0,1": {
+                  "_type": "Grid Layout",
+                  "_title": "ArcadeDrive",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 1,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "1,0": {
+                      "_type": "Number Bar",
+                      "_source0": "network_table:///SmartDashboard/DriveTrain/ArcadeDrive/Rotate",
+                      "_title": "Rotate",
+                      "Range/Min": -1.0,
+                      "Range/Max": 1.0,
+                      "Range/Center": 0.0,
+                      "Visuals/Num tick marks": 5,
+                      "Visuals/Show text": true
+                    },
+                    "0,0": {
+                      "_type": "Number Bar",
+                      "_source0": "network_table:///SmartDashboard/DriveTrain/ArcadeDrive/Throttle",
+                      "_title": "Throttle",
+                      "Range/Min": -1.0,
+                      "Range/Max": 1.0,
+                      "Range/Center": 0.0,
+                      "Visuals/Num tick marks": 5,
+                      "Visuals/Show text": true
+                    }
+                  }
+                },
+                "1,1": {
+                  "_type": "Grid Layout",
+                  "_title": "Tank Drive",
+                  "Layout/Number of columns": 2,
+                  "Layout/Number of rows": 1,
+                  "Layout/Label position": "TOP",
+                  "_children": {
+                    "0,0": {
+                      "_type": "Number Bar",
+                      "_source0": "network_table:///SmartDashboard/DriveTrain/Drive/TankDrive/Left",
+                      "_title": "Left",
+                      "Range/Min": -1.0,
+                      "Range/Max": 1.0,
+                      "Range/Center": 0.0,
+                      "Visuals/Num tick marks": 5,
+                      "Visuals/Show text": true
+                    },
+                    "1,0": {
+                      "_type": "Number Bar",
+                      "_source0": "network_table:///SmartDashboard/DriveTrain/Drive/TankDrive/Right",
+                      "_title": "Right",
+                      "Range/Min": -1.0,
+                      "Range/Max": 1.0,
+                      "Range/Center": 0.0,
+                      "Visuals/Num tick marks": 5,
+                      "Visuals/Show text": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Shooter",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "8,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter/BottomMotor/Speed",
+              "_title": "Bottom Motor Sped"
+            }
+          },
+          "11,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter/BottomMotor/SpeedChange",
+              "_title": "SmartDashboard/Shooter/BottomMotor/SpeedChange"
+            }
+          },
+          "2,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter/TopMotor/Speed",
+              "_title": "Top Motor Speed"
+            }
+          },
+          "6,3": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter/TopBottomRatio",
+              "_title": "/SmartDashboard/Shooter/TopBottomRatio"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Competition",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 64.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "10,0": {
+            "size": [
+              3,
+              5
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Intake",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,1": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Intake/Running",
+                  "_title": "/SmartDashboard/Intake/Running",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                "0,0": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/IntakeState",
+                  "_title": "/SmartDashboard/IntakeState",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              }
+            }
+          },
+          "0,0": {
+            "size": [
+              6,
+              5
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "DriveTrain",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Drive/Gear",
+                  "_title": "/SmartDashboard/DriveTrain/Drive/Gear"
+                },
+                "0,0": {
+                  "_type": "ComboBox Chooser",
+                  "_source0": "network_table:///SmartDashboard/DriveTrain/Drive/Choose Drive",
+                  "_title": "DriveChooser"
+                }
+              }
+            }
+          },
+          "6,0": {
+            "size": [
+              4,
+              5
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Shooter",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 3,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Shooter/TopMotor/Speed",
+                  "_title": "/SmartDashboard/Shooter/TopMotor/Speed"
+                },
+                "0,1": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Shooter/BottomMotor/Speed",
+                  "_title": "/SmartDashboard/Shooter/BottomMotor/Speed"
+                },
+                "0,2": {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Shooter/TopBottomRatio",
+                  "_title": "/SmartDashboard/Shooter/TopBottomRatio"
+                }
+              }
+            }
+          },
+          "13,0": {
+            "size": [
+              3,
+              5
+            ],
+            "content": {
+              "_type": "Grid Layout",
+              "_title": "Other Subsystems",
+              "Layout/Number of columns": 1,
+              "Layout/Number of rows": 2,
+              "Layout/Label position": "BOTTOM",
+              "_children": {
+                "0,0": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Shooter/Running",
+                  "_title": "/SmartDashboard/Shooter/Running",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                "0,1": {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///SmartDashboard/Serializer/Running",
+                  "_title": "/SmartDashboard/Serializer/Running",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1366.0,
+    "height": 728.0
+  }
+}

@@ -20,7 +20,7 @@ public class Pneumatics {
 
     public Pneumatics() {
         compressor = new Compressor(Constants.kCompressorID);
-        compressor.setClosedLoopControl(true);
+        compressor.setClosedLoopControl(false);
 
         solenoidList = new ArrayList<>();
     }

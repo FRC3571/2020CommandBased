@@ -11,7 +11,7 @@ public class Climber extends SubsystemBase {
     }
 
     public Climber() {
-        //RobotContainer.pneumatics.createSolenoid(Constants.kSolenoidPort, Constants.kFirstID, Constants.kSecondID);
+        RobotContainer.pneumatics.createSolenoid(Constants.kSolenoidPort, Constants.kFirstID, Constants.kSecondID);
     }
 
     public void setSolenoid(boolean openState){

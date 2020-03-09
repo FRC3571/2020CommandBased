@@ -5,12 +5,18 @@ import frc.robot.subsystems.Intake;
 
 public class ToggleIntake extends InstantCommand {
     private final Intake intake;
-    private final boolean openState;
+    private boolean openState;
 
     public ToggleIntake(final Intake intake) {
         this.intake = intake;
         this.openState = !intake.getOpenState();
+        
         addRequirements(intake);
+    }
+
+    @Override
+    public void initialize() {
+        this.openState = !intake.getOpenState();
     }
 
     @Override

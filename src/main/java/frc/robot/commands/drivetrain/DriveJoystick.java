@@ -28,7 +28,7 @@ public class DriveJoystick extends CommandBase {
       driveTrain.tankdrive(controller.leftStick.getY(), controller.rightStick.getY(), true);
       break;
     default:
-      driveTrain.arcadeDrive(controller.leftStick.getY(), -controller.rightStick.getX(), true);
+      driveTrain.arcadeDrive(controller.leftStick.getY(), controller.rightStick.getX(), true);
       break;
     }
   }

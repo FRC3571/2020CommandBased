@@ -83,6 +83,7 @@ public class DriveTrain extends SubsystemBase {
     // Initializing Differential Drive with Speed Controller Groups
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setRightSideInverted(false);
+    drive.setSafetyEnabled(false);
 
     // Initializing Encoders
     leftFrontEncoder = leftFrontMotor.getEncoder();
@@ -99,7 +100,7 @@ public class DriveTrain extends SubsystemBase {
     yPos = 0;
 
     // Setting Default DriveMode and Gear
-    chosenDrive = DriveMode.ATWOJOY;
+    chosenDrive = DriveMode.AONEJOY;
     chosenGear = Gear.THIRD;
 
     // Creating Dropdown Menu to quickly change drive mode on Shuffleboard
