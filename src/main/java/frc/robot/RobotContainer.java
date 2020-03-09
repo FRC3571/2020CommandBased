@@ -20,6 +20,7 @@ import frc.robot.RobotContainer.Constants.AutoMode;
 import frc.robot.commands.Shoot;
 import frc.robot.components.NAVX;
 import frc.robot.components.Pneumatics;
+import frc.robot.components.Vision;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
@@ -52,6 +53,7 @@ public class RobotContainer {
 
   // Initializing Other Components
   public final static NAVX navx = new NAVX();
+  public final static Vision vision = new Vision();
 
   // Initializing Subsystems
   public final static Pneumatics pneumatics = new Pneumatics();
@@ -102,7 +104,6 @@ public class RobotContainer {
     operatorController.dPad.left.whenPressed(new ChangeShooterBottomSpeed(shooter, false));
     operatorController.A.toggleWhenPressed(new RunShooter(shooter));
     operatorController.X.toggleWhenPressed(new RunSerializer(serializer));
-    // operatorController.X.toggleWhenPressed(new RunSerializer(serializer));
 
     // Intake
     operatorController.B.toggleWhenPressed(new RunIntake(intake));

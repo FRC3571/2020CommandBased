@@ -5,6 +5,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
+import frc.robot.commands.shooter.TargetHighGoal;
 
 public class Shooter extends SubsystemBase {
     // Constants used in this class
@@ -35,6 +37,8 @@ public class Shooter extends SubsystemBase {
         topBottomRatio = 0.7;
         bottomSpeed = 0.7;
         topSpeed = bottomSpeed * topBottomRatio;
+
+        setDefaultCommand(new TargetHighGoal(RobotContainer.driveTrain, RobotContainer.vision));
     }
 
     public void log() {
