@@ -8,6 +8,7 @@ public class TargetHighGoal extends ParallelCommandGroup {
     public TargetHighGoal(DriveTrain drivetrain, Vision vision) {
         addCommands(
             new TurnToHighGoal(drivetrain, vision)
+            // when it is created, the command to aim at the high goal based on distance will be added
         );
     }
 }
