@@ -75,7 +75,7 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
 
-    autoChooser = new SendableChooser<>();
+    autoChooser = new SendableChooser<AutoMode>();
     autoChooser.setDefaultOption("Default", AutoMode.DEFAULT);
     autoChooser.addOption("None", AutoMode.NONE);
   }

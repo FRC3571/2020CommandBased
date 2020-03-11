@@ -29,6 +29,4 @@ public class Vision {
         SmartDashboard.putNumber("Vision/HighTargetX", highTargetX.getDouble(0));
         SmartDashboard.putNumber("Vision/HighTargetY", highTargetY.getDouble(0));
     }
-
-
 }

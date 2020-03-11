@@ -138,7 +138,7 @@ public class DriveStraightDistance extends CommandBase {
 
     @Override
     public void execute() {
-        leftPID.setReference(-targetDistance, ControlType.kSmartMotion);
+        leftPID.setReference(targetDistance, ControlType.kSmartMotion);
         rightPID.setReference(targetDistance, ControlType.kSmartMotion);
 
         error = Math.abs(targetDistance - driveTrain.getDistance());

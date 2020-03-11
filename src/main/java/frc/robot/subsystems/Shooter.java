@@ -38,7 +38,7 @@ public class Shooter extends SubsystemBase {
         bottomSpeed = 0.7;
         topSpeed = bottomSpeed * topBottomRatio;
 
-        setDefaultCommand(new TargetHighGoal(RobotContainer.driveTrain, RobotContainer.vision));
+        //setDefaultCommand(new TargetHighGoal(RobotContainer.driveTrain, RobotContainer.vision));
     }
 
     public void log() {

@@ -9,11 +9,11 @@ import frc.robot.util.RobotMath;
 
 public class TurnToAngle extends PIDCommand {
 
-    private static final double kP = 0.015;
-    private static final double kI = 0.000;
-    private static final double kD = 0.00;
+    private static final double kP = 1;
+    private static final double kI = 0;
+    private static final double kD = 0;
 
-    private static final double kToleranceDegrees = 2.0f;
+    private static final double kToleranceDegrees = 2;
 
     public TurnToAngle(final DriveTrain driveTrain, final AHRS ahrs, final double angle) {
         super(new PIDController(kP, kI, kD), ahrs::getYaw, angle, output -> driveTrain.arcadeDrive(0, output, false),
@@ -27,5 +27,10 @@ public class TurnToAngle extends PIDCommand {
                 output -> driveTrain.arcadeDrive(0, output, false), driveTrain);
         getController().enableContinuousInput(-180, 180);
         getController().setTolerance(kToleranceDegrees);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return getController().atSetpoint();
     }
 }
